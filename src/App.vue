@@ -1,16 +1,19 @@
 <script setup lang="ts">
-    import PokemonListing from './components/PokemonListing.vue';
-    import PokemonCard from './components/PokemonCard.vue';
-    import { Pokemon } from '@/types/pokemon';
-    import {ref} from 'vue'
 
-    const pokemonArray = ref([
-        new Pokemon(1, "asd", "asasd", "asdasd")
-    ])
+    import {ref, onBeforeMount} from 'vue'
+    import SectionSelector from './components/SectionSelector.vue';
+    import {usePokemonData} from '@/stores/pokemonStore'
+
+    onBeforeMount(() => {
+        const pokemonData = usePokemonData()
+        pokemonData.updatePokemonData()
+    })
+
 </script>
 
 <template>
-    <PokemonListing :pokemon-array="pokemonArray"/>
+    <SectionSelector />
+    <router-view/>
 </template>
 
 <style scoped>
